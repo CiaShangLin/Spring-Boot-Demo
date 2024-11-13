@@ -1,0 +1,7 @@
+user:
+  userName: 开发环境-刘亦菲
+  sex: 女
+  age: 18
+
+server:
+  port: 8081

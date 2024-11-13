@@ -1,0 +1,12 @@
+# application.yaml (默认配置文件)
+user:
+  userName: 刘亦菲
+  sex: 女
+  age: 20
+
+server:
+  port: 8080    # 注意这里不需要等号
+
+spring:
+  profiles:
+    active: dev  # 注意这里不需要等号和冒号
