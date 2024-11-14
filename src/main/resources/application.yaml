@@ -5,8 +5,16 @@ user:
   age: 20
 
 server:
-  port: 8080    # 注意这里不需要等号
+  port: 8080  # 端口配置
 
 spring:
-  profiles:
-    active: dev  # 注意这里不需要等号和冒号
+  datasource:
+    url: jdbc:mysql://localhost:3306/springboot_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: nb046
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mybatis:
+    mapper-locations: classpath*:/mapper/**/*.xml
+    type-aliases-package: com.example.demo.entity
+  #  profiles:
+  #    active: dev  # 注意这里不需要等号和冒号
