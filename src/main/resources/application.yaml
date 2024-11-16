@@ -1,11 +1,14 @@
 # application.yaml (默认配置文件)
 user:
-  userName: 刘亦菲
+  userName: nick
   sex: 女
   age: 20
 
 server:
   port: 8080  # 端口配置
+  servlet:
+    context-path: /shang
+
 
 spring:
   datasource:
@@ -13,8 +16,8 @@ spring:
     username: root
     password: nb046
     driver-class-name: com.mysql.cj.jdbc.Driver
-  mybatis:
-    mapper-locations: classpath*:/mapper/**/*.xml
-    type-aliases-package: com.example.demo.entity
-  #  profiles:
-  #    active: dev  # 注意这里不需要等号和冒号
+
+
+logging:
+  level:
+    com.example.demo: debug

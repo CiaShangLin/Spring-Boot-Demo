@@ -1,12 +1,13 @@
 package com.example.demo.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.demo.entity.UserEntity;
+import com.example.demo.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
-/**
- * 用户管理持久层
- */
 @Mapper
-public interface UserMapper extends BaseMapper<UserEntity> {
+public interface UserMapper {
+
+    @Select("select * from user where id = #{id}")
+    public User findById(Integer id);
+
 }
