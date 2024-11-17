@@ -4,6 +4,10 @@ user:
   sex: 女
   age: 20
 
+country:
+  name: TW
+  system: SO2
+
 server:
   port: 8080  # 端口配置
   servlet:
