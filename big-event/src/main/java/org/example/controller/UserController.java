@@ -4,11 +4,15 @@ import jakarta.validation.constraints.Pattern;
 import org.example.pojo.Result;
 import org.example.pojo.User;
 import org.example.service.UserService;
+import org.example.utils.JwtUnit;
 import org.example.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController()
 @RequestMapping("/user")
@@ -35,7 +39,11 @@ public class UserController {
             return Result.error("沒有用戶名");
         }
         if(MD5Utils.encrypt(password).equals(user.getPassword())){
-            return Result.success("jwt token...");
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("username", username);
+            claims.put("password", password);
+            String token = JwtUnit.getToken(claims);
+            return Result.success(token);
         }
         return Result.error("密碼錯誤");
     }
