@@ -6,10 +6,9 @@ import org.example.pojo.User;
 import org.example.service.UserService;
 import org.example.utils.JwtUnit;
 import org.example.utils.MD5Utils;
+import org.example.utils.ThreadLocalUnit;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,5 +45,19 @@ public class UserController {
             return Result.success(token);
         }
         return Result.error("密碼錯誤");
+    }
+
+    @GetMapping("userinfo")
+    public Result<User> getUserInfo(@RequestHeader(name = "Authorization") String token){
+       Map<String,Object> claims = ThreadLocalUnit.get();
+       String username = (String) claims.get("username");
+       User user = userService.findByUserName(username);
+       return Result.success(user);
+    }
+
+    @PostMapping("update")
+    public Result<User> update(@RequestBody User user){
+        userService.update(user);
+        return Result.success();
     }
 }

@@ -6,4 +6,6 @@ public interface  UserService {
     public User findByUserName(String username);
 
     public void register(String username, String password) ;
+
+    public void update(User user);
 }

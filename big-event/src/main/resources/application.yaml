@@ -21,6 +21,10 @@ spring:
     password: nb046
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+# 開啟駝峰命名跟下畫線自動轉換
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
 
 logging:
   level:
