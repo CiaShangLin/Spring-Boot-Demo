@@ -8,6 +8,7 @@ import org.example.utils.JwtUnit;
 import org.example.utils.MD5Utils;
 import org.example.utils.ThreadLocalUnit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public Result<String> login(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
         User user = userService.findByUserName(username);
         if(user == null){
@@ -55,8 +56,8 @@ public class UserController {
        return Result.success(user);
     }
 
-    @PostMapping("update")
-    public Result<User> update(@RequestBody User user){
+    @PutMapping("update")
+    public Result<User> update(@RequestBody @Validated User user){
         userService.update(user);
         return Result.success();
     }
