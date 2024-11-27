@@ -5,7 +5,7 @@ CREATE TABLE `user` (
   `password` varchar(45) DEFAULT NULL,
   `nickname` varchar(45) DEFAULT NULL,
   `email` varchar(128) DEFAULT NULL,
-  `useupdate_timer_pic` varchar(128) DEFAULT NULL,
+  `user_pic` varchar(128) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
