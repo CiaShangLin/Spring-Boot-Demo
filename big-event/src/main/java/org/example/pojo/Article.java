@@ -1,16 +1,29 @@
 package org.example.pojo;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.example.anno.State;
+import org.hibernate.validator.constraints.URL;
 
 import java.time.LocalDateTime;
 
 
 public class Article {
     private Integer id;
+    @NotEmpty
+    @Pattern(regexp = "^\\S{1,10}$")
     private String title;
+    @NotEmpty
+    @Pattern(regexp = "^\\S{1,10}$")
     private String content;
+    @NotEmpty
+    @URL
     private String coverImg;
+    @State
     private String state;
+    @NotNull
     private Integer categoryId;
     private Integer createUser;
     private LocalDateTime createTime;
