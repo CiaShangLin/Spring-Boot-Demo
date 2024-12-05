@@ -13,6 +13,8 @@ server:
 #  servlet:
 #    context-path: /shang
 
+imgur:
+  client-id: ${IMGUR_CLIENT_ID}
 
 spring:
   datasource:
