@@ -12,7 +12,7 @@ import java.util.Base64;
 
 public class ImgurUploader {
     private static final String IMGUR_API_URL = "https://api.imgur.com/3/image";
-    private static final String CLIENT_ID = "9d9ba49be7e4df4";
+    private static final String CLIENT_ID = "";
 
     public String uploadImage(MultipartFile file) throws IOException {
         // 將文件轉換為Base64編碼
