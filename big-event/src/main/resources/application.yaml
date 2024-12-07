@@ -14,7 +14,7 @@ server:
 #    context-path: /shang
 
 imgur:
-  client-id: ${IMGUR_CLIENT_ID}
+  client-id: ${IMGUR_CLIENT_ID:?需要提供 Imgur Client ID}
 
 spring:
   datasource:
@@ -22,6 +22,11 @@ spring:
     username: root
     password: nb046
     driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      #password: root@123456
 
 # 開啟駝峰命名跟下畫線自動轉換
 mybatis:

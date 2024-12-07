@@ -9,12 +9,15 @@ import org.example.utils.MD5Utils;
 import org.example.utils.ThreadLocalUnit;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController()
 @RequestMapping("/user")
@@ -22,6 +25,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
     @PostMapping("register")
     public Result register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
@@ -46,6 +52,9 @@ public class UserController {
             claims.put("password", password);
             claims.put("id", user.getId());
             String token = JwtUnit.getToken(claims);
+
+            ValueOperations<String,String> valueOperations =  stringRedisTemplate.opsForValue();
+            valueOperations.set("token",token,1, TimeUnit.HOURS);
             return Result.success(token);
         }
         return Result.error("密碼錯誤");
@@ -89,6 +98,9 @@ public class UserController {
             return Result.error("兩次填寫密碼不同");
         }
         userService.updatePwd(newPwd);
+
+        ValueOperations<String,String> valueOperations =  stringRedisTemplate.opsForValue();
+        valueOperations.getOperations().delete("token");
         return Result.success();
     }
 }
