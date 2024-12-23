@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <table border="1" colspa="0" cellspacing="0">
+            <tr>
+                <th>文章標題</th>
+                <th>分類</th>
+                <th>發表時間</th>
+                <th>狀態</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(article,index) in articleList" :key="index">
+                <td>{{article.title}}</td>
+                <td>{{article.content}}</td>
+                <td>{{article.updateTime}}</td>
+                <td>{{article.state}}</td>
+
+            </tr>
+        </table>
+        <價格: <span v-if="comsumer.level>=0 && comsumer.level<=1">9.9</span>
+            <span v-else-if="comsumer.level>=2 && comsumer.level<=4">19.9</span>
+            <span v-else>29.9</span>
+            <br>
+            價格:
+            <span v-show="comsumer.level>=0 && comsumer.level<=1">9.9</span>
+            <span v-show="comsumer.level>=2 && comsumer.level<=4">19.9</span>
+            <span v-show="comsumer.level>=5">29.9</span>
+
+            <br>
+            <button v-on:click="money">click 1</button>
+            <button @click="love">click 2</button>
+            <br>
+            文章分類: <input type="text" v-model="searchConditions.category"> <span>{{searchConditions.category}}</span>
+            文章狀態: <input type="text" v-model="searchConditions.state"> <span>{{searchConditions.state}}</span>
+            <button v-on:click="search">搜尋</button>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    articleList: [],
+                    searchConditions: {
+                        category: '',
+                        state: '',
+                    },
+                    comsumer: {
+                        name: 'ShangLin',
+                        level: 1,
+                    },
+
+                }
+            },
+            methods: {
+                money: function () {
+                    alert('money')
+                },
+                love: function () {
+                    alert('love')
+                },
+                clear: function () {
+                    this.searchConditions.category = ''
+                    this.searchConditions.state = ''
+                },
+                search: function () {
+                    axios.get("http://localhost:8080/article/search", {
+                        params: {
+                            categoryId: this.searchConditions.category,
+                            state: this.searchConditions.state
+                        }
+                    }).then(result => {
+                        this.articleList = result.data.data;
+                        console.log(result.data.data);
+                    }).catch(err => {
+                        console.error('請求錯誤：', err);
+                    });
+                }
+            },
+            mounted: function () {
+                // 在這裡發送請求
+                axios.get('http://localhost:8080/article/list', {
+                    params: {
+                        pageSize: 20,
+                        pageNum: 1
+                    }
+                })
+                    .then(result => {
+                        this.articleList = result.data.data.data;  // 注意：這裡可能多寫了一個 .data
+                    })
+                    .catch(err => {
+                        console.error('請求錯誤：', err);
+                    });
+            }
+        }).mount('#app');
+    </script>
+
+</body>
+
+</html>

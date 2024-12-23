@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>js導入導出</title>
+</head>
+
+<body>
+    <div id="app">
+        <button id="btn">點我展示訊息</button>
+    </div>
+    <script type="module">
+        import message from './showMessage.js';
+        document.getElementById("btn").onclick=function(){
+            message.complexMessage("我被點擊了...")
+        }
+    </script>
+</body>
+
+</html>

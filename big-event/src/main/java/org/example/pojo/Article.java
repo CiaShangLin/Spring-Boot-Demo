@@ -100,4 +100,16 @@ public class Article {
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
+
+    public Article(Integer id, String title, String content, String coverImg, String state, Integer categoryId, Integer createUser, LocalDateTime createTime, LocalDateTime updateTime) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.coverImg = coverImg;
+        this.state = state;
+        this.categoryId = categoryId;
+        this.createUser = createUser;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
 }
